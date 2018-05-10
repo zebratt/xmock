@@ -1,0 +1,14 @@
+{
+  "name": "xmock",
+  "version": "1.0.0",
+  "description": "a mock platform",
+  "main": "main.js",
+  "author": "xuejian.xu",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^2.0.0"
+  }
+}
