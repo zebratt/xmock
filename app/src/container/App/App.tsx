@@ -9,7 +9,12 @@ interface IAppProps {}
 class App extends React.Component<IAppProps> {
     render() {
         return <div className={styles.app}>
-            hello world
+            <div className={styles.menu}>
+                123
+            </div>
+            <div className={styles.mainContainer}>
+                content
+            </div>
         </div>
     }
 }
