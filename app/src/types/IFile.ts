@@ -1,4 +1,4 @@
-export default interface IFile {
+export interface IFile {
     id: number,
     fileName: string,
     content: string
