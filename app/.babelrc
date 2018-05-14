@@ -9,6 +9,13 @@
                 "regenerator": true
             }
         ],
-        ["transform-decorators-legacy"]
+        ["transform-decorators-legacy"],
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "style": "css"
+            }
+        ]
     ]
 }
