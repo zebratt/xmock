@@ -1,0 +1,15 @@
+{
+  "name": "xmock-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "xuejian.xu",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=dev nodemon src/app.js"
+  },
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0"
+  }
+}
