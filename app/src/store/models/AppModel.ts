@@ -1,4 +1,4 @@
-import { observable, action, IObservableArray } from 'mobx'
+import { observable, action, IObservableArray, IObservableValue } from 'mobx'
 import ApiService from '@src/utils/ApiService'
 
 // types
@@ -6,12 +6,12 @@ import { IFile } from '@src/types/IFile'
 import { IResponse } from '@src/types/IResponse'
 
 class AppModel {
-    @observable current: IFile | null
-    @observable files: IObservableArray<IFile>
+    currentFileId: IObservableValue<number>
+    files: IObservableArray<IFile>
 
     constructor() {
         this.files = observable([])
-        this.current = null
+        this.currentFileId = observable.box<number>(0)
     }
 
     @action
