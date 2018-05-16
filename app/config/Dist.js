@@ -14,8 +14,8 @@ class WebpackDistConfig extends WebpackBaseConfig {
         this.config = {
             mode: 'production',
             entry: {
-                vendor: ['react', 'react-dom'],
-                app: ['./src/index.tsx']
+                vendor: ['react', 'react-dom', 'antd', 'mobx', 'mobx-react'],
+                app: ['./src/index.js']
             },
             output: {
                 path: path.resolve(__dirname, '../../electron/dist'),

@@ -1,4 +1,4 @@
-import AppModel from './models/AppModel'
+import {AppModel} from './models/AppModel'
 
 export default {
     AppModel

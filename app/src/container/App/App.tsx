@@ -8,10 +8,15 @@ import classNames from 'classnames'
 // types
 import { IObservableArray } from 'mobx'
 import { IFile } from '@src/types/IFile'
+import {AppModelClass} from '@src/store/models/AppModel'
+
+interface IAppProps {
+    AppModel : AppModelClass
+}
 
 @inject('AppModel')
 @observer
-class App extends React.Component<any> {
+class App extends React.Component<IAppProps> {
     componentDidMount() {
         this.props.AppModel.loadFiles()
     }
@@ -21,6 +26,10 @@ class App extends React.Component<any> {
     textAreaChange = (eve: React.SyntheticEvent<HTMLTextAreaElement>) => {
         const { AppModel } = this.props
         AppModel.updateCurrentFileContentAction(AppModel.currentFileId.get(), eve.currentTarget.value)
+    }
+    saveButtonClick = () => {
+        const { AppModel } = this.props
+        AppModel.saveFileContent(AppModel.currentFileId.get())
     }
     renderMenu = () => {
         const { AppModel } = this.props
@@ -54,7 +63,7 @@ class App extends React.Component<any> {
         return (
             <div className={styles.mainContainer}>
                 <div className={styles.menuBar}>
-                    <Button type="primary">保存</Button>
+                    <Button type="primary" onClick={this.saveButtonClick}>保存</Button>
                 </div>
                 <div className={styles.textarea}>
                     <Input.TextArea value={content} onChange={this.textAreaChange} />

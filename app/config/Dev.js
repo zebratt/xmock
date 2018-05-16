@@ -14,7 +14,7 @@ class WebpackDevConfig extends WebpackBaseConfig {
         this.config = {
             mode: 'development',
             entry: {
-                app: ['./src/index.tsx']
+                app: ['./src/index.js']
             },
             devtool: 'cheap-module-eval-source-map',
             devServer: {

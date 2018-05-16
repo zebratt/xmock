@@ -23,4 +23,8 @@ router.get('/all', (ctx, next) => {
     ctx.body = {code: 0, message: '', d: mockData}
 })
 
+router.post('/save', (ctx, next) => {
+    ctx.body = {code: 0, message: ''}
+})
+
 module.exports = router

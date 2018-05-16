@@ -10,6 +10,7 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
+        "allowJs": true,
         "jsx": "preserve",
         "strict": true,
         "experimentalDecorators": true,
