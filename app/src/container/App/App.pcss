@@ -16,12 +16,32 @@
 
         & .file-item:hover{
             cursor: pointer;
+        }
+
+        & .file-item.active{
             background: #006DC8;
             color: #fff;
         }
     }
 
     & .main-container{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
         margin-left: 240px;
+
+        & .menu-bar{
+            padding: 0 20px;
+            line-height: 50px;
+        }
+
+        & .textarea{
+            flex: 1;
+            padding: 0 20px 20px 20px;
+
+            & textarea{
+                height: 100%;
+            }
+        }
     }
 }

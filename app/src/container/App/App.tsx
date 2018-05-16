@@ -2,6 +2,8 @@ import styles from './App.pcss'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import find from 'lodash/find'
+import { Button, Input } from 'antd'
+import classNames from 'classnames'
 
 // types
 import { IObservableArray } from 'mobx'
@@ -14,9 +16,35 @@ class App extends React.Component<any> {
         this.props.AppModel.loadFiles()
     }
     fileItemClick = (file: IFile) => {
-        this.props.AppModel.currentFileId.set(file.id)
+        this.props.AppModel.updateCurrentFileIdAction(file.id)
     }
-    render() {
+    textAreaChange = (eve: React.SyntheticEvent<HTMLTextAreaElement>) => {
+        const { AppModel } = this.props
+        AppModel.updateCurrentFileContentAction(AppModel.currentFileId.get(), eve.currentTarget.value)
+    }
+    renderMenu = () => {
+        const { AppModel } = this.props
+        const files: IObservableArray<IFile> = AppModel.files
+        const currentFileId: number = AppModel.currentFileId.get()
+
+        return (
+            <div className={styles.menu}>
+                {files.map(file => {
+                    const fileItemStyle = classNames({
+                        [styles.fileItem]: true,
+                        [styles.active]: currentFileId === file.id
+                    })
+
+                    return (
+                        <div key={file.id} className={fileItemStyle} onClick={this.fileItemClick.bind(this, file)}>
+                            {file.fileName}
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
+    renderContent = () => {
         const { AppModel } = this.props
         const files: IObservableArray<IFile> = AppModel.files
         const currentFileId: number = AppModel.currentFileId.get()
@@ -24,21 +52,21 @@ class App extends React.Component<any> {
         const content = currentFile ? currentFile.content : null
 
         return (
-            <div className={styles.app}>
-                <div className={styles.menu}>
-                    {files.map(file => {
-                        return (
-                            <div
-                                key={file.id}
-                                className={styles.fileItem}
-                                onClick={this.fileItemClick.bind(this, file)}
-                            >
-                                {file.fileName}
-                            </div>
-                        )
-                    })}
+            <div className={styles.mainContainer}>
+                <div className={styles.menuBar}>
+                    <Button type="primary">保存</Button>
                 </div>
-                <div className={styles.mainContainer}>{content}</div>
+                <div className={styles.textarea}>
+                    <Input.TextArea value={content} onChange={this.textAreaChange} />
+                </div>
+            </div>
+        )
+    }
+    render() {
+        return (
+            <div className={styles.app}>
+                {this.renderMenu()}
+                {this.renderContent()}
             </div>
         )
     }

@@ -36,10 +36,12 @@
         "webpack-dev-server": "^3.1.1"
     },
     "dependencies": {
+        "@types/classnames": "^2.2.3",
         "@types/lodash": "^4.14.108",
         "@types/qs": "^6.5.1",
         "antd": "^3.5.2",
         "axios": "^0.18.0",
+        "classnames": "^2.2.5",
         "lodash": "^4.17.10",
         "mobx": "^4.2.0",
         "mobx-react": "^5.0.0",
