@@ -23,7 +23,7 @@ app.use(rootRouter.allowedMethods())
 
 // final router
 app.use(async ctx => {
-    ctx.body = { code: -1, message: 'request can not match any route' }
+    ctx.body = { code: -1, message: '您所请求的接口不存在' }
 })
 
 app.listen(port, '127.0.0.1', null, () => {

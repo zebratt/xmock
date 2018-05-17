@@ -1,30 +1,56 @@
 const Router = require('koa-router')
 const router = new Router()
+const find = require('lodash/find')
 
-router.get('/all', (ctx, next) => {
-    const mockData = [
-        {
-            id: 1,
-            fileName: 'aaa.json',
-            content: 123
-        },
-        {
-            id: 2,
-            fileName: 'bbb.json',
-            content: 234
-        },
-        {
-            id: 3,
-            fileName: 'ccc.json',
-            content: 789
-        }
-    ]
+// mock data
+const data = require('./data')
 
-    ctx.body = {code: 0, message: '', d: mockData}
+router.get('/list', (ctx, next) => {
+    ctx.body = {
+        code: 0,
+        d: data.map(d => {
+            return {
+                id: d.id,
+                fileName: d.fileName
+            }
+        })
+    }
 })
 
-router.post('/save', (ctx, next) => {
-    ctx.body = {code: 0, message: ''}
+router.get('/:id', (ctx, next) => {
+    const id = ctx.params.id
+    const file = find(data, ['id', parseInt(id)])
+
+    if(file){
+        ctx.body = {
+            code: 0,
+            d: file.content
+        }
+    }else{
+        ctx.body = {
+            code: -1,
+            message: '文件不存在！'
+        }
+    }
+})
+
+router.post('/:id/save', (ctx, next) => {
+    const id = ctx.params.id
+    const {content} = ctx.request.body
+    const file = find(data, ['id', parseInt(id)])
+
+    if(file){
+        file.content = content
+
+        ctx.body = {
+            code: 0
+        }
+    }else{
+        ctx.body = {
+            code: -1,
+            message: '文件不存在！'
+        }
+    }
 })
 
 module.exports = router

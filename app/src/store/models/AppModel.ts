@@ -1,6 +1,5 @@
 import { observable, action, IObservableArray, IObservableValue } from 'mobx'
 import ApiService from '@src/utils/ApiService'
-import find from 'lodash/find'
 import { notification } from 'antd'
 
 // types
@@ -10,24 +9,25 @@ import { IResponse } from '@src/types/IResponse'
 export class AppModelClass {
     readonly currentFileId: IObservableValue<number>
     readonly files: IObservableArray<IFile>
+    readonly currentContent: IObservableValue<string>
 
     constructor() {
         this.files = observable<IFile>([])
-        this.currentFileId = observable.box<number>(1)
+        this.currentFileId = observable.box<number>(-1)
+        this.currentContent = observable.box<string>()
     }
+    async loadFileList() {
+        const res = await ApiService.get<IResponse<Array<IFile>>>('//localhost:4000/api/file/list')
 
-    async loadFiles() {
-        const res = await ApiService.get<IResponse<Array<IFile>>>('//localhost:4000/api/file/all')
-
-        this.loadFilesAction(res.data.d)
+        this.loadFileListAction(res.data.d)
     }
-
-    async saveFileContent(id: number) {
-        const currentFile: IFile | undefined = find(this.files, ['id', id])
-        const res = await ApiService.post<IResponse<any>>('//localhost:4000/api/file/save', {
-            id,
-            content: currentFile ? currentFile.content : ''
-        })
+    async saveFileContent() {
+        const res = await ApiService.post<IResponse<any>>(
+            `//localhost:4000/api/file/${this.currentFileId.get()}/save`,
+            {
+                content: this.currentContent.get()
+            }
+        )
 
         if (res.data.code === 0) {
             notification.success({
@@ -37,24 +37,28 @@ export class AppModelClass {
             })
         }
     }
+    async loadFileContent(id: number) {
+        const res = await ApiService.get<IResponse<string>>(`//localhost:4000/api/file/${id}`)
 
+        this.loadFileContentAction(res.data.d)
+        this.updateCurrentFileIdAction(id)
+    }
     @action
-    loadFilesAction(data: Array<IFile>) {
+    loadFileListAction(data: Array<IFile>) {
         this.files.replace(data)
     }
-
+    @action
+    loadFileContentAction(content: string) {
+        this.currentContent.set(content)
+    }
     @action
     updateCurrentFileIdAction(nextId: number) {
         this.currentFileId.set(nextId)
     }
 
     @action
-    updateCurrentFileContentAction(id: number, nContent: string) {
-        const currentFile = find(this.files, ['id', id])
-
-        if (currentFile) {
-            currentFile.content = nContent
-        }
+    updateCurrentFileContentAction(nContent: string) {
+        this.currentContent.set(nContent)
     }
 }
 

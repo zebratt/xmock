@@ -1,35 +1,34 @@
 import styles from './App.pcss'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import find from 'lodash/find'
 import { Button, Input } from 'antd'
 import classNames from 'classnames'
 
 // types
 import { IObservableArray } from 'mobx'
 import { IFile } from '@src/types/IFile'
-import {AppModelClass} from '@src/store/models/AppModel'
+import { AppModelClass } from '@src/store/models/AppModel'
 
 interface IAppProps {
-    AppModel : AppModelClass
+    AppModel: AppModelClass
 }
 
 @inject('AppModel')
 @observer
 class App extends React.Component<IAppProps> {
     componentDidMount() {
-        this.props.AppModel.loadFiles()
+        this.props.AppModel.loadFileList()
     }
     fileItemClick = (file: IFile) => {
-        this.props.AppModel.updateCurrentFileIdAction(file.id)
+        this.props.AppModel.loadFileContent(file.id)
     }
     textAreaChange = (eve: React.SyntheticEvent<HTMLTextAreaElement>) => {
         const { AppModel } = this.props
-        AppModel.updateCurrentFileContentAction(AppModel.currentFileId.get(), eve.currentTarget.value)
+        AppModel.updateCurrentFileContentAction(eve.currentTarget.value)
     }
     saveButtonClick = () => {
         const { AppModel } = this.props
-        AppModel.saveFileContent(AppModel.currentFileId.get())
+        AppModel.saveFileContent()
     }
     renderMenu = () => {
         const { AppModel } = this.props
@@ -55,15 +54,23 @@ class App extends React.Component<IAppProps> {
     }
     renderContent = () => {
         const { AppModel } = this.props
-        const files: IObservableArray<IFile> = AppModel.files
         const currentFileId: number = AppModel.currentFileId.get()
-        const currentFile = find(files, ['id', currentFileId])
-        const content = currentFile ? currentFile.content : null
+        const content = AppModel.currentContent.get()
+
+        if (currentFileId < 0) {
+            return (
+                <div className={styles.mainContainer}>
+                    <div className={styles.welcome}>欢迎使用XMock</div>
+                </div>
+            )
+        }
 
         return (
             <div className={styles.mainContainer}>
                 <div className={styles.menuBar}>
-                    <Button type="primary" onClick={this.saveButtonClick}>保存</Button>
+                    <Button type="primary" onClick={this.saveButtonClick}>
+                        保存
+                    </Button>
                 </div>
                 <div className={styles.textarea}>
                     <Input.TextArea value={content} onChange={this.textAreaChange} />
