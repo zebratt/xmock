@@ -3,7 +3,6 @@ const app = new Koa()
 const rootRouter = require('./routes')
 const bodyParser = require('koa-bodyparser')
 
-
 app.use(bodyParser())
 
 // access log
