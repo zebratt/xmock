@@ -17,13 +17,13 @@ export class AppModelClass {
         this.currentContent = observable.box<string>()
     }
     async loadFileList() {
-        const res = await ApiService.get<IResponse<Array<IFile>>>('//localhost:4000/api/file/list')
+        const res = await ApiService.get<IResponse<Array<IFile>>>('http://localhost:4000/api/file/list')
 
         this.loadFileListAction(res.data.d)
     }
     async saveFileContent() {
         const res = await ApiService.post<IResponse<any>>(
-            `//localhost:4000/api/file/${this.currentFileId.get()}/save`,
+            `http://localhost:4000/api/file/${this.currentFileId.get()}/save`,
             {
                 content: this.currentContent.get()
             }
@@ -38,7 +38,7 @@ export class AppModelClass {
         }
     }
     async loadFileContent(id: number) {
-        const res = await ApiService.get<IResponse<string>>(`//localhost:4000/api/file/${id}`)
+        const res = await ApiService.get<IResponse<string>>(`http://localhost:4000/api/file/${id}`)
 
         this.loadFileContentAction(res.data.d)
         this.updateCurrentFileIdAction(id)
