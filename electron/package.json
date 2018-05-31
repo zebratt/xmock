@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "electron": "^2.0.0"
+  },
+  "dependencies": {
+    "lowdb": "^1.0.0"
   }
 }

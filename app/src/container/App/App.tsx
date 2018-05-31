@@ -9,6 +9,9 @@ import { IObservableArray } from 'mobx'
 import { IFile } from '@src/types/IFile'
 import { AppModelClass } from '@src/store/models/AppModel'
 
+// utils
+import StorageService from '@src/utils/StorageService'
+
 interface IAppProps {
     AppModel: AppModelClass
 }
@@ -61,6 +64,13 @@ class App extends React.Component<IAppProps> {
             return (
                 <div className={styles.mainContainer}>
                     <div className={styles.welcome}>欢迎使用XMock</div>
+                    <Button type="primary" onClick={() => {
+                        StorageService.set('testKey', {name: 'callie'}).write()
+                    }}>Click me to save data</Button>
+                    <Button type="primary" onClick={() => {
+                        const data = StorageService.get('testKey').value()
+                        console.log(data)
+                    }}>Click me read data</Button>
                 </div>
             )
         }

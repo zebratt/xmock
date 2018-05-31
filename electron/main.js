@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
+const spawn = require('child_process').spawn
+
+const server = spawn('node', ['../server/bin/www'])
 
 let win
 
@@ -21,6 +24,7 @@ function createWindow() {
     win.webContents.openDevTools()
 
     win.on('closed', () => {
+        server.kill()
         win = null
     })
 }

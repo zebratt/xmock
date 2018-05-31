@@ -68,6 +68,17 @@ class WebpackBaseConfig {
                     }
                 ]
             },
+            externals: [
+                (() => {
+                    const IGNORES = ['electron']
+                    return (context, request, callback) => {
+                        if (IGNORES.indexOf(request) >= 0) {
+                            return callback(null, "require('" + request + "')")
+                        }
+                        return callback()
+                    }
+                })()
+            ],
             resolve: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx', '.pcss'],
                 alias: {
