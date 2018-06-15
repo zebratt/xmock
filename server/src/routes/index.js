@@ -11,6 +11,6 @@ router.all('*', async (ctx, next) => {
     await next()
 })
 
-router.use('/api/file', fileRouter.routes())
+router.use('/api/files', fileRouter.routes())
 
 module.exports = router

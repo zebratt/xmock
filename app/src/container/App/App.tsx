@@ -1,7 +1,7 @@
 import styles from './App.pcss'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { Button, Input } from 'antd'
+import { Button, Input, Modal } from 'antd'
 import Menu from './Menu/Menu'
 
 // types
@@ -18,18 +18,25 @@ class App extends React.Component<IAppProps> {
         this.props.AppModel.loadFileList()
     }
     textAreaChange = (eve: React.SyntheticEvent<HTMLTextAreaElement>) => {
-        const { AppModel } = this.props
-        AppModel.updateCurrentFileContentAction(eve.currentTarget.value)
+        this.props.AppModel.updateCurrentFileContentAction(eve.currentTarget.value)
     }
     saveButtonClick = () => {
-        const { AppModel } = this.props
-        AppModel.saveFileContent()
+        this.props.AppModel.saveFileContent()
+    }
+    deleteButtonClick = () => {
+        Modal.confirm({
+            title: '提醒',
+            content: '确认删除吗？',
+            onOk: () => {
+                this.props.AppModel.deleteCurrentFile()
+                this.props.AppModel.loadFileList()
+            }
+        })
     }
     render() {
         const { AppModel } = this.props
         const currentFileId: number = AppModel.currentFileId.get()
         const content = AppModel.currentContent.get()
-
 
         return (
             <div className={styles.app}>
@@ -43,6 +50,10 @@ class App extends React.Component<IAppProps> {
                         <div className={styles.menuBar}>
                             <Button type="primary" onClick={this.saveButtonClick}>
                                 保存
+                            </Button>
+                            &nbsp;
+                            <Button type="danger" onClick={this.deleteButtonClick}>
+                                删除
                             </Button>
                         </div>
                         <div className={styles.textarea}>

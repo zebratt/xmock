@@ -33,6 +33,17 @@ router.get('/:id', (ctx, next) => {
     }
 })
 
+router.get('/:id/delete', (ctx, next) => {
+    const id = ctx.params.id
+
+    StorageService.get('files').remove({id: parseInt(id)}).write()
+
+    ctx.body = {
+        code: 0,
+        message: 'success'
+    }
+})
+
 router.post('/:id/save', (ctx, next) => {
     const id = ctx.params.id
     const {content} = ctx.request.body

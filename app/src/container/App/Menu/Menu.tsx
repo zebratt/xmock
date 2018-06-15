@@ -1,6 +1,7 @@
 import styles from './Menu.pcss'
 import React from 'react'
 import { observer } from 'mobx-react'
+import {Button} from 'antd'
 
 // types
 import { AppModelClass } from '@src/store/models/AppModel'
@@ -15,29 +16,34 @@ interface IMenuProps {
 }
 
 @observer
-class Menu extends React.Component<IMenuProps>{
+class Menu extends React.Component<IMenuProps> {
     fileItemClick = (file: IFile) => {
         this.props.AppModel.loadFileContent(file.id)
     }
-    render(){
+    render() {
         const { AppModel } = this.props
         const files: IObservableArray<IFile> = AppModel.files
         const currentFileId: number = AppModel.currentFileId.get()
 
         return (
             <div className={styles.menu}>
-                {files.map(file => {
-                    const fileItemStyle = classNames({
-                        [styles.fileItem]: true,
-                        [styles.active]: currentFileId === file.id
-                    })
+                <div className={styles.fileContent}>
+                    {files.map(file => {
+                        const fileItemStyle = classNames({
+                            [styles.fileItem]: true,
+                            [styles.active]: currentFileId === file.id
+                        })
 
-                    return (
-                        <div key={file.id} className={fileItemStyle} onClick={this.fileItemClick.bind(this, file)}>
-                            {file.fileName}
-                        </div>
-                    )
-                })}
+                        return (
+                            <div key={file.id} className={fileItemStyle} onClick={this.fileItemClick.bind(this, file)}>
+                                {file.fileName}
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className={styles.add}>
+                    <Button type="primary">添加新文件</Button>
+                </div>
             </div>
         )
     }

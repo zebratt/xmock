@@ -4,19 +4,30 @@
     position: absolute;
     border-right: #e5e5e5 solid 1px;
     color: #333;
+    display: flex;
+    flex-direction: column;
 
-    & .file-item {
-        line-height: 40px;
+    & .file-content {
+        flex: 1;
+
+        & .file-item {
+            line-height: 40px;
+            text-align: center;
+            border-bottom: #e5e5e5 solid 1px;
+        }
+
+        & .file-item:hover {
+            cursor: pointer;
+        }
+
+        & .file-item.active {
+            background: #006dc8;
+            color: #fff;
+        }
+    }
+
+    & .add {
+        height: 40px;
         text-align: center;
-        border-bottom: #e5e5e5 solid 1px;
-    }
-
-    & .file-item:hover {
-        cursor: pointer;
-    }
-
-    & .file-item.active {
-        background: #006dc8;
-        color: #fff;
     }
 }
