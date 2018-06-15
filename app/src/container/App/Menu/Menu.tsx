@@ -1,18 +1,19 @@
 import styles from './Menu.pcss'
 import React from 'react'
-import { observer, inject } from 'mobx-react'
 
 // types
-// import { AppModelClass } from '@src/store/models/AppModel'
+import { AppModelClass } from '@src/store/models/AppModel'
 import { IObservableArray } from 'mobx'
 import { IFile } from '@src/types/IFile'
 
 // utils
 import classNames from 'classnames'
 
-@inject('AppModel')
-@observer
-class Menu extends React.Component<any, any>{
+interface IMenuProps {
+    AppModel: AppModelClass
+}
+
+class Menu extends React.Component<IMenuProps>{
     fileItemClick = (file: IFile) => {
         this.props.AppModel.loadFileContent(file.id)
     }

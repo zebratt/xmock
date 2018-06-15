@@ -7,8 +7,6 @@ import Menu from './Menu/Menu'
 // types
 import { AppModelClass } from '@src/store/models/AppModel'
 
-// import StorageService from '@src/utils/StorageService'
-
 interface IAppProps {
     AppModel: AppModelClass
 }
@@ -34,7 +32,7 @@ class App extends React.Component<IAppProps> {
 
         return (
             <div className={styles.app}>
-                <Menu />
+                <Menu AppModel={AppModel} />
                 {currentFileId < 0 ? (
                     <div className={styles.mainContainer}>
                         <div className={styles.welcome}>欢迎使用XMock</div>
