@@ -1,14 +1,13 @@
 const Router = require('koa-router')
 const router = new Router()
-const find = require('lodash/find')
-
-// mock data
-const data = require('./data')
+const StorageService = require('../../service/StorageService')
 
 router.get('/list', (ctx, next) => {
+    const files = StorageService.get('files').value() 
+
     ctx.body = {
         code: 0,
-        d: data.map(d => {
+        d: files.map(d => {
             return {
                 id: d.id,
                 fileName: d.fileName
@@ -19,7 +18,7 @@ router.get('/list', (ctx, next) => {
 
 router.get('/:id', (ctx, next) => {
     const id = ctx.params.id
-    const file = find(data, ['id', parseInt(id)])
+    const file = StorageService.get('files').find(['id', parseInt(id)]).value()
 
     if(file){
         ctx.body = {
@@ -37,13 +36,14 @@ router.get('/:id', (ctx, next) => {
 router.post('/:id/save', (ctx, next) => {
     const id = ctx.params.id
     const {content} = ctx.request.body
-    const file = find(data, ['id', parseInt(id)])
+    const file = StorageService.get('files').find(['id', parseInt(id)])
 
-    if(file){
-        file.content = content
+    if(file.value()){
+        file.set('content', content).write()
 
         ctx.body = {
-            code: 0
+            code: 0,
+            message: 'success'
         }
     }else{
         ctx.body = {
