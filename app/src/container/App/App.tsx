@@ -30,6 +30,7 @@ class App extends React.Component<IAppProps> {
         const currentFileId: number = AppModel.currentFileId.get()
         const content = AppModel.currentContent.get()
 
+
         return (
             <div className={styles.app}>
                 <Menu AppModel={AppModel} />
