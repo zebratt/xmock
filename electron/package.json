@@ -6,7 +6,8 @@
   "author": "xuejian.xu",
   "license": "MIT",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-packager ./ XMock --platform=darwin --out ~/Desktop/XMock --overwrite "
   },
   "devDependencies": {
     "electron": "^2.0.0"

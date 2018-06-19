@@ -13,5 +13,24 @@ router.all('*', async (ctx, next) => {
 })
 
 router.use('/api/files', fileRouter.routes())
+router.use('/mock', (ctx, next) => {
+    const subPath = ctx.path.substring(5)
+    const files = StorageService.get('files').value()
+    let content = ''
+
+    for(let i=0; i< files.length; i++){
+        if(files[i].url === subPath){
+            content = files[i].content
+
+            break
+        }
+    }
+
+    if(content){
+        ctx.body = content
+    }else{
+        next()
+    }
+})
 
 module.exports = router
