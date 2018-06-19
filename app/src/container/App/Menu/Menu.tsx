@@ -12,7 +12,8 @@ import { IFile } from '@src/types/IFile'
 import classNames from 'classnames'
 
 interface IMenuProps {
-    AppModel: AppModelClass
+    AppModel: AppModelClass,
+    newFileButtonHandler: () => void
 }
 
 @observer
@@ -42,7 +43,7 @@ class Menu extends React.Component<IMenuProps> {
                     })}
                 </div>
                 <div className={styles.add}>
-                    <Button type="primary">添加新文件</Button>
+                    <Button type="primary" onClick={this.props.newFileButtonHandler}>添加新文件</Button>
                 </div>
             </div>
         )

@@ -35,8 +35,21 @@ export class AppModelClass {
             })
         }
     }
+    async saveNewFile(fileName: string){
+        const res = await ApiService.post<IResponse<any>>(`${HOST}/api/files/save`, {
+            fileName
+        })
+
+        if (res.data.code === 0) {
+            notification.success({
+                message: 'Success',
+                description: '保存成功！',
+                duration: 1
+            })
+        }
+    }
     async deleteCurrentFile() {
-        const res = await ApiService.get<IResponse<string>>(`${HOST}/api/files/${this.currentFileId.get()}/delete`)
+        const res = await ApiService.get<IResponse<any>>(`${HOST}/api/files/${this.currentFileId.get()}/delete`)
 
         if (res.data.code === 0) {
             notification.success({

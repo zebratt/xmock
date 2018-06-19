@@ -11,9 +11,18 @@ interface IAppProps {
     AppModel: AppModelClass
 }
 
+interface IAppState {
+    showAddModel: boolean
+    newFileNameValue: string
+}
+
 @inject('AppModel')
 @observer
-class App extends React.Component<IAppProps> {
+class App extends React.Component<IAppProps, IAppState> {
+    state = {
+        showAddModel: false,
+        newFileNameValue: ''
+    }
     componentDidMount() {
         this.props.AppModel.loadFileList()
     }
@@ -33,14 +42,44 @@ class App extends React.Component<IAppProps> {
             }
         })
     }
+    modalConfirmClick = () => {
+        const { newFileNameValue } = this.state
+
+        if (newFileNameValue) {
+            this.props.AppModel.saveNewFile(newFileNameValue)
+            this.props.AppModel.loadFileList()
+
+            this.setState({
+                newFileNameValue: '',
+                showAddModel: false
+            })
+        }
+    }
+    modalCancelClick = () => {
+        this.setState({
+            newFileNameValue: '',
+            showAddModel: false
+        })
+    }
+    newFileNameValueChange = (eve: React.SyntheticEvent<HTMLInputElement>) => {
+        this.setState({
+            newFileNameValue: eve.currentTarget.value
+        })
+    }
+    newFileButtonHandler = () => {
+        this.setState({
+            showAddModel: true
+        })
+    }
     render() {
         const { AppModel } = this.props
+        const { showAddModel, newFileNameValue } = this.state
         const currentFileId: number = AppModel.currentFileId.get()
         const content = AppModel.currentContent.get()
 
         return (
             <div className={styles.app}>
-                <Menu AppModel={AppModel} />
+                <Menu AppModel={AppModel} newFileButtonHandler={this.newFileButtonHandler} />
                 {currentFileId < 0 ? (
                     <div className={styles.mainContainer}>
                         <div className={styles.welcome}>欢迎使用XMock</div>
@@ -61,6 +100,14 @@ class App extends React.Component<IAppProps> {
                         </div>
                     </div>
                 )}
+                <Modal
+                    visible={showAddModel}
+                    title="请输入新文件名称"
+                    onOk={this.modalConfirmClick}
+                    onCancel={this.modalCancelClick}
+                >
+                    <Input value={newFileNameValue} onChange={this.newFileNameValueChange} />
+                </Modal>
             </div>
         )
     }
