@@ -1,6 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 const fileRouter = require('./fileRouter')
+const StorageService = require('../service/StorageService')
 
 router.all('*', async (ctx, next) => {
     if (ctx.app.env === 'dev') {

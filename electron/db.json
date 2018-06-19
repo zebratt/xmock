@@ -4,25 +4,19 @@
       "id": 1,
       "fileName": "aaa.json",
       "content": "88856456",
-      "url": "111133333"
+      "url": "/aaa"
     },
     {
       "id": 1529377869490,
       "fileName": "test",
       "content": "adsgadfaf",
-      "url": "4234123"
+      "url": "/bbb"
     },
     {
       "id": 1529377969574,
       "fileName": "fsfsfaf",
       "content": "hahahahadfadf",
-      "url": "4124123"
-    },
-    {
-      "id": 1529378466171,
-      "fileName": "test2",
-      "content": "hello world",
-      "url": "rerwr"
+      "url": "/ccc"
     }
   ]
 }
