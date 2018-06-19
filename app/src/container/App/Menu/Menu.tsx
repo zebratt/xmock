@@ -13,13 +13,13 @@ import classNames from 'classnames'
 
 interface IMenuProps {
     AppModel: AppModelClass,
-    newFileButtonHandler: () => void
+    newFileButtonHandler(): void
 }
 
 @observer
 class Menu extends React.Component<IMenuProps> {
     fileItemClick = (file: IFile) => {
-        this.props.AppModel.loadFileContent(file.id)
+        this.props.AppModel.loadFile(file.id)
     }
     render() {
         const { AppModel } = this.props

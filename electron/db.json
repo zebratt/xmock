@@ -3,22 +3,26 @@
     {
       "id": 1,
       "fileName": "aaa.json",
-      "content": "88856456"
+      "content": "88856456",
+      "url": "111133333"
     },
     {
       "id": 1529377869490,
       "fileName": "test",
-      "content": "adsgadfaf"
+      "content": "adsgadfaf",
+      "url": "4234123"
     },
     {
       "id": 1529377969574,
       "fileName": "fsfsfaf",
-      "content": "hahahahadfadf"
+      "content": "hahahahadfadf",
+      "url": "4124123"
     },
     {
       "id": 1529378466171,
       "fileName": "test2",
-      "content": "11213"
+      "content": "hello world",
+      "url": "rerwr"
     }
   ]
 }
