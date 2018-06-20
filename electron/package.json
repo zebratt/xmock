@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ XMock --platform=darwin --out ~/Desktop/XMock --overwrite "
+    "package": "electron-packager ./ XMock --platform=darwin --out ~/Desktop/XMock --overwrite",
+    "win": "electron-packager ./ XMock --platform=win32 --out ~/Desktop/XMockWin --overwrite"
   },
   "devDependencies": {
     "electron": "^2.0.0"
