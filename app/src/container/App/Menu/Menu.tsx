@@ -6,7 +6,7 @@ import {Button} from 'antd'
 // types
 import { AppModelClass } from '@src/store/models/AppModel'
 import { IObservableArray } from 'mobx'
-import { IFile } from '@src/types/IFile'
+import { IFile } from '@src/types/App/IFile'
 
 // utils
 import classNames from 'classnames'

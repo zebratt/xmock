@@ -4,8 +4,8 @@ import { notification } from 'antd'
 import { HOST } from '@src/settings'
 
 // types
-import { IFile } from '@src/types/IFile'
-import { IResponse } from '@src/types/IResponse'
+import { IFile } from '@src/types/App/IFile'
+import { IResponse } from '@src/types/App/IResponse'
 
 export class AppModelClass {
     readonly currentFileId: IObservableValue<number>
