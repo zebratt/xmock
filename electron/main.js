@@ -5,7 +5,7 @@ const url = require('url')
 const server = require('./server/src/app')
 const port = process.env.PORT || 4000
 
-server.listen(port, '127.0.0.1', null, () => {})
+// server.listen(port, '127.0.0.1', null, () => {})
 
 let win
 
