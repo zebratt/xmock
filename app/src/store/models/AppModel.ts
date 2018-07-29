@@ -5,7 +5,7 @@ import { HOST } from '@src/settings'
 
 // types
 import { IFile } from '@src/types/App/IFile'
-import { IResponse } from '@src/types/App/IResponse'
+import { IResponse } from '@src/types/Common/IResponse'
 
 export class AppModelClass {
     readonly currentFileId: IObservableValue<number>
